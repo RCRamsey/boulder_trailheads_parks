@@ -118,10 +118,9 @@
     
     // loop through the features and create a new
       // list item for each feature in the legend and corresponding color
-      // for(let i = 1; i <= parks.features.length; i++) { 
-      //   legendList.append('<li class="legend-item" id="park' + i + '"><a style="color:' + colors.DarkMint[10][i -1] + '" href="#">Park ' + i + '(<span></span>)</a></li>');
-      // }
-    
+      for(let i = 1; i <= parks.features.length; i++) { 
+        legendList.append('<li class="legend-item" id="park' + i + '"><a style="color:' + colors.DarkMint[7][i -1] + '" href="#">Parks ID ' + i + '(<span></span>)</a></li>');
+      }
     
     //convert GeoJSON to Leaflet L.geoJson() object and add to the map
     L.geoJson(parks).addTo(map);
