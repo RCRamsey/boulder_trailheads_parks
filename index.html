@@ -33,9 +33,10 @@
 
   <div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  
   <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="libs/Leaflet.markercluster/leaflet.markercluster.js"></script>
     
   <script>
@@ -100,26 +101,26 @@
       }
     }).addTo(map);
 
-    L.geoJson(trailHeads).addTo(map);
-    // // create new markerClusterGroup
-    // const markers = L.markerClusterGroup();
+    //L.geoJson(trailHeads).addTo(map);
+    // create new markerClusterGroup
+    const markers = L.markerClusterGroup();
 
-    // // loop through all our signals features
-    // signals.features.forEach(function(feature) {
-    //   // create a new Leaflet marker for each
-    //   let coords = feature.geometry.coordinates;
-    //   //lng/lat organization of coordinates
-    //   let marker = L.marker([coords[1], coords[0]]);
+    // loop through all our signals features
+    trailHeads.features.forEach(function(feature) {
+      // create a new Leaflet marker for each
+      let coords = feature.geometry.coordinates;
+      //lng/lat organization of coordinates
+      let marker = L.marker([coords[1], coords[0]]);
 
-    //   // bind a tooltip to the marker
-    //   marker.bindTooltip("Trail Head Name: " + feature.properties.THNAME);
+      // bind a tooltip to the marker
+      marker.bindTooltip("Trail Head Name: " + feature.properties.THNAME);
 
-    //   // add the marker to the markerClusterGroup
-    //   markers.addLayer(marker);
+      // add the marker to the markerClusterGroup
+      markers.addLayer(marker);
 
-    // });
-    // // add the markerClusterGroup to the map
-    // map.addLayer(markers);
+    });
+    // add the markerClusterGroup to the map
+    map.addLayer(markers);
   }
 
   </script>
