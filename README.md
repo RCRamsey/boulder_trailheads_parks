@@ -13,11 +13,13 @@ downloaded as geoJSON from Boulder Open Data Portal. ([Metadata](https://www.arc
 
 Public Leisure Parks: Used QGIS (version 3.16) QuickOSM plugin (version 1.14.3) to pull Key: leisure Value: park from OpenStreetMaps within the area of Boulder County Colorado. Exported from QGIS as [geoJSON](data/boulder_co_trailheads_wgs84.geojson)
 
+CARTOCOLORS INFO HERE
+
 ### Processing
 
 #### Starting Information
 `mapshaper boulder_co_trailheads_wgs84.geojson -info`  
-Point; 331 Records; WGS84; 9 Attributes (BATTrailheadID; COMMENTS; DATAOWNER; FEE; GlobalID; OBJECTID; STEWARD; THNAME; THTYPE;) keep all for now. Current Size 1.44 Kb
+Point; 331 Records; WGS84; 9 Attributes (will filter out all but BATTrailheadID; FEE; GlobalID; STEWARD; THNAME; THTYPE;). Current Size 1.44 Kb
 
 `mapshaper quickosm_leisure_park_boulder_co_wgs84.geojson -info`
 Polygon; 314 Records; WGS84; 37 Attributes (will need to filter out all but type, osm_type, osm_id, leisure, full_id). Current Size  4.45 Kb.
@@ -25,7 +27,16 @@ Polygon; 314 Records; WGS84; 37 Attributes (will need to filter out all but type
 `mapshaper cb_2021_tiger_boulder_county_wgs84.geojson -info`
 Polygon; 1 Record; WGS84; 9 Attributes (AFFGEOID; ALAND; AWATER; COUNTYFYP; COUNTYNS; GEOID; LSAD; NAME; STATEFP) keep all for now. Current Size .09 Kb.
 
+#### Reducing File Sizes
+From Root File directory
+`mapshaper data/boulder_co_trailheads_wgs84.geojson -filter-fields BATTrailheadID,FEE,GlobalID,STEWARD,THNAME,THTYPE -o precision=.001 format=geojson data/boulder_co_trailheads_wgs84_simpl.geojson` Reduced file size from 1.44 Kb to current size 1.08 Kb.
+
+`mapshaper data/quickosm_leisure_park_boulder_co_wgs84.geojson -filter-fields type,osm_type,osm_id,leisure,full_id -simplify dp 15% -o precision=.0001 format=geojson data/quickosm_leisure_park_boulder_co_wgs84_simpl.geojson` Reduced file size from 4.45Kb to current size .80 Kb.
+
+Further confirmed reduced/simplified geoJSON files using geojson.io
+
 ## Node Commands Utilized:
-
-
+npm init
+npm install chalk
+node fs-require.js (to read in command console cartocolor.json; select 'DarkMint')
 
