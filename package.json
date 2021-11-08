@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Trailheads in relation to public parks in Boulder County Colorado",
   "main": "app.js",
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,13 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/RCRamsey/boulder_trailheads_parks.git"
   },
-  "author": "",
+  "author": "RCRamsey",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/RCRamsey/boulder_trailheads_parks/issues"
   },
-  "homepage": "https://github.com/RCRamsey/boulder_trailheads_parks#readme",
-  "dependencies": {
-    "chalk": "^4.1.2"
-  }
+  "homepage": "https://github.com/RCRamsey/boulder_trailheads_parks#readme"
 }
