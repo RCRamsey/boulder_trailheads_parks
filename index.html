@@ -23,6 +23,9 @@
       top: 0;
       bottom: 0;
     }
+
+
+
   </style>
 </head>
 
@@ -31,6 +34,10 @@
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="libs/Leaflet.markercluster/leaflet.markercluster.js"></script>
+    
   <script>
     // map options
     const options = {
@@ -46,20 +53,73 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
     }).addTo(map);
 
+    //use D3 fetch to request data with async requests
+    const parksData = d3.json('data/quickosm_leisure_park_boulder_co_wgs84_simpl.geojson');
+    const colorsData = d3.json('data/darkmintcolors.json');
+    const trailHeadsData = d3.json('data/boulder_co_trailheads_wgs84_simpl.geojson');
+
+    // use Promise to wait until data is all loaded
+    Promise.all([parksData, colorsData, trailHeadsData]).then(drawMap);
 
 
+    function drawMap(data) {
+    // function is called when Promise is fulfilled and data is ready
 
+    // inspect array of data
+    console.log(data);
 
+    // pull out separate data arrays and assign to variables
+    const parks = data[0];
+    const colors = data[1];
+    const trailHeads = data[2];
 
+    
+    //store ref to HTML list
+    const legendList = $('#legend-list');
+    
+    // loop through the features and create a new
+      // list item for each feature in the legend and corresponding color
+      // for(let i = 1; i <= parks.features.length; i++) { 
+      //   legendList.append('<li class="legend-item" id="park' + i + '"><a style="color:' + colors.DarkMint[10][i -1] + '" href="#">Park ' + i + '(<span></span>)</a></li>');
+      // }
+    
+    
+    //convert GeoJSON to Leaflet L.geoJson() object and add to the map
+    L.geoJson(parks).addTo(map);
 
+    // create a layerGroup with the geojson data
+    const parksLayerGroup = L.geoJson(parks, {
+      style: function (feature) {
+      // use the colors object to style each polygon's color
+      //🔥DarkMint only has 7 colors...will they repeat since more than 7 parks?
+      //🔥is the osm_id being a string preventing the coloration?
+        return {
+        color: colors.DarkMint[7][feature.properties.osm_id],
+        fillOpacity: .6
+        }
+      }
+    }).addTo(map);
 
+    // create new markerClusterGroup
+    const markers = L.markerClusterGroup();
 
+    // loop through all our signals features
+    signals.features.forEach(function(feature) {
+    // create a new Leaflet marker for each
+    let coords = feature.geometry.coordinates;
+    //lng/lat organization of coordinates
+    let marker = L.marker([coords[1], coords[0]]);
 
+    // bind a tooltip to the marker
+    marker.bindTooltip("Trail Head Name: " + feature.properties.THNAME);
 
+    // add the marker to the markerClusterGroup
+    markers.addLayer(marker);
 
-
-
-
+    });
+    // add the markerClusterGroup to the map
+    map.addLayer(markers);
+  }
 
   </script>
 </body>
