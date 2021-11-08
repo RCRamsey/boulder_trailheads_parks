@@ -13,5 +13,19 @@ downloaded as geoJSON from Boulder Open Data Portal. ([Metadata](https://www.arc
 
 Public Leisure Parks: Used QGIS (version 3.16) QuickOSM plugin (version 1.14.3) to pull Key: leisure Value: park from OpenStreetMaps within the area of Boulder County Colorado. Exported from QGIS as [geoJSON](data/boulder_co_trailheads_wgs84.geojson)
 
+### Processing
+
+#### Starting Information
+`mapshaper boulder_co_trailheads_wgs84.geojson -info`  
+Point; 331 Records; WGS84; 9 Attributes (BATTrailheadID; COMMENTS; DATAOWNER; FEE; GlobalID; OBJECTID; STEWARD; THNAME; THTYPE;) keep all for now. Current Size 1.44 Kb
+
+`mapshaper quickosm_leisure_park_boulder_co_wgs84.geojson -info`
+Polygon; 314 Records; WGS84; 37 Attributes (will need to filter out all but type, osm_type, osm_id, leisure, full_id). Current Size  4.45 Kb.
+
+`mapshaper cb_2021_tiger_boulder_county_wgs84.geojson -info`
+Polygon; 1 Record; WGS84; 9 Attributes (AFFGEOID; ALAND; AWATER; COUNTYFYP; COUNTYNS; GEOID; LSAD; NAME; STATEFP) keep all for now. Current Size .09 Kb.
+
+## Node Commands Utilized:
+
 
 
