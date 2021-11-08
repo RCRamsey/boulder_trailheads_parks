@@ -1,0 +1,14 @@
+cd Documents
+cd map675_2onward
+cd boulder_trailheads_parks
+cd data
+dir
+cd ..
+npm install chalk
+conda env list
+source activate python_jupyter_cheatsheet
+activate python_jupyter_cheatsheet
+npm install chalk
+doskey /c cmd_history.txt
+doskey /history
+doskey /h >cmd_history.txt
