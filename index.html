@@ -100,25 +100,26 @@
       }
     }).addTo(map);
 
-    // create new markerClusterGroup
-    const markers = L.markerClusterGroup();
+    L.geoJson(trailHeads).addTo(map);
+    // // create new markerClusterGroup
+    // const markers = L.markerClusterGroup();
 
-    // loop through all our signals features
-    signals.features.forEach(function(feature) {
-    // create a new Leaflet marker for each
-    let coords = feature.geometry.coordinates;
-    //lng/lat organization of coordinates
-    let marker = L.marker([coords[1], coords[0]]);
+    // // loop through all our signals features
+    // signals.features.forEach(function(feature) {
+    //   // create a new Leaflet marker for each
+    //   let coords = feature.geometry.coordinates;
+    //   //lng/lat organization of coordinates
+    //   let marker = L.marker([coords[1], coords[0]]);
 
-    // bind a tooltip to the marker
-    marker.bindTooltip("Trail Head Name: " + feature.properties.THNAME);
+    //   // bind a tooltip to the marker
+    //   marker.bindTooltip("Trail Head Name: " + feature.properties.THNAME);
 
-    // add the marker to the markerClusterGroup
-    markers.addLayer(marker);
+    //   // add the marker to the markerClusterGroup
+    //   markers.addLayer(marker);
 
-    });
-    // add the markerClusterGroup to the map
-    map.addLayer(markers);
+    // });
+    // // add the markerClusterGroup to the map
+    // map.addLayer(markers);
   }
 
   </script>
