@@ -5,8 +5,11 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Lesson 02 template</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  <title>Boulder County Parks & Trailheads</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.Default.css"> />
+  <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.css"> />
+
   <style>
     body {
       font-family: sans-serif;
@@ -27,12 +30,12 @@
 
   <div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script>
     // map options
     const options = {
-      center: [37.265, -94.04],
-      zoom: 4
+      center: [39.7392, -104.9903],
+      zoom: 10
     }
     // instantiate Leaflet map
     const map = L.map('map', options);
@@ -43,6 +46,21 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
     }).addTo(map);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
   </script>
 </body>
 
