@@ -39,4 +39,7 @@ Further confirmed reduced/simplified geoJSON files using geojson.io
 npm init
 npm install chalk
 node fs-require.js (to read in command console cartocolor.json; select 'DarkMint')
+node fs-sync.js (to output 'DarkMint' color scheme from cartocolor.json and save as 'darkmintcolors.json)
+live-server (to confirm changes to index.html to zoom to Boulder)
 
+Update index.html template to pull map specific data.
