@@ -66,8 +66,8 @@
   <div id="map"></div>
 
   <div id="ui">
-    <h3>Boulder County Parks</h3>
-    <h4>(corresponding Trailheads & approximate cities )</h4>
+    <h3>Public Parks by Approximate Town Groupings</h3>
+    <h4> & Boulder County, Colorado's nearby Trailheads</h4>
     <ul id="legend-list"></ul>
   </div>
 
@@ -86,10 +86,10 @@
     // instantiate Leaflet map
     const map = L.map('map', options);
 
-    // add CARTO voyager tiles with no labels
-    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+    // add OSM tiles basemap
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+      maxZoom: 20,
+      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors</a>'
     }).addTo(map);
 
     //use D3 fetch to request data with async requests
@@ -97,9 +97,10 @@
     const parksData = d3.json('data/qosm_park_cityish_wgs84_numbered.geojson');
     const colorsData = d3.json('data/darkmintcolors.json');
     const trailHeadsData = d3.json('data/boulder_co_trailheads_wgs84_simpl.geojson');
+    const city_ishData= d3.json('data/city_ish_boulder_co.geojson');
 
     // use Promise to wait until data is all loaded
-    Promise.all([parksData, colorsData, trailHeadsData]).then(drawMap);
+    Promise.all([parksData, colorsData, trailHeadsData, city_ishData]).then(drawMap);
 
 
     function drawMap(data) {
@@ -112,18 +113,16 @@
     const parks = data[0];
     const colors = data[1];
     const trailHeads = data[2];
-
-
-    //uncommented code for ui in legend should try standard legend 
+    const city_ish = data[3];
 
     //store ref to HTML list
-    //const legendList = $('#legend-list');
+    const legendList = $('#legend-list');
     
     // loop through the features and create a new
       // list item for each feature in the legend and corresponding color
-      // for(let i = 1; i <= parks.features.length; i++) { 
-      //   legendList.append('<li class="legend-item" id="parks' + i + '"><a style="color:' + colors.DarkMint[7][i -1] + '" href="#">Parks ID ' + i + '(<span></span>)</a></li>');
-      // }
+       for(let i = 1; i <= city_ish.features.length; i++) { 
+         legendList.append('<li class="legend-item" id="cityish_id' + i + '"><a style="color:' + colors.DarkMint[7][i -1] + '" href="#">Rough City Area ID ' + i + '(<span></span>)</a></li>');
+       }
     
     //convert GeoJSON to Leaflet L.geoJson() object and add to the map
     L.geoJson(parks).addTo(map);
