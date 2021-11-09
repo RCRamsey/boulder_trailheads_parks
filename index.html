@@ -93,8 +93,8 @@
     }).addTo(map);
 
     //use D3 fetch to request data with async requests
-    const parksData = d3.json('data/quickosm_leisure_park_boulder_co_wgs84_simpl.geojson');
-    //const parksData = d3.json('data/qosm_park_cityish_wgs84.geojson');
+    //const parksData = d3.json('data/quickosm_leisure_park_boulder_co_wgs84_simpl.geojson');
+    const parksData = d3.json('data/qosm_park_cityish_wgs84_numbered.geojson');
     const colorsData = d3.json('data/darkmintcolors.json');
     const trailHeadsData = d3.json('data/boulder_co_trailheads_wgs84_simpl.geojson');
 
@@ -113,14 +113,17 @@
     const colors = data[1];
     const trailHeads = data[2];
 
+
+    //uncommented code for ui in legend should try standard legend 
+
     //store ref to HTML list
-    const legendList = $('#legend-list');
+    //const legendList = $('#legend-list');
     
     // loop through the features and create a new
       // list item for each feature in the legend and corresponding color
-      for(let i = 1; i <= parks.features.length; i++) { 
-        legendList.append('<li class="legend-item" id="park' + i + '"><a style="color:' + colors.DarkMint[7][i -1] + '" href="#">Parks ID ' + i + '(<span></span>)</a></li>');
-      }
+      // for(let i = 1; i <= parks.features.length; i++) { 
+      //   legendList.append('<li class="legend-item" id="parks' + i + '"><a style="color:' + colors.DarkMint[7][i -1] + '" href="#">Parks ID ' + i + '(<span></span>)</a></li>');
+      // }
     
     //convert GeoJSON to Leaflet L.geoJson() object and add to the map
     L.geoJson(parks).addTo(map);
@@ -129,11 +132,10 @@
     const parksLayerGroup = L.geoJson(parks, {
       style: function (feature) {
       // use the colors object to style each polygon's color
-      //🔥DarkMint only has 7 colors...will they repeat since more than 7 parks?
-      //🔥is the osm_id being a string preventing the coloration? (when using parks simpl geojson)
-      //🔥when i swap to the parks with city_ish id and plan to use as a district it doesn't populate
+      //DarkMint only has 7 colors...will they repeat since more than 7 parks? no
+      //if the osm_id is a string will it prevent the coloration? yes
         return {
-        color: colors.DarkMint[7][feature.properties.osm_id],
+        color: colors.DarkMint[7][feature.properties.city_ish_id],
         fillOpacity: .6
         }
       }
